@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+
+    <title>Classes</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sign-in/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+      
+      <script
+  src="https://code.jquery.com/jquery-3.5.1.js"
+  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script>
+      <script>
+        $(function(){
+            $('#addClass').click(function(){
+                
+                $.ajax({
+                    url: '/addClass',
+                    data: $('form').serialize(),
+                    type: 'POST',
+                    success: function(response){
+                        if (response.localeCompare("Success") == 0) {
+                            alert("Class Created!");
+                            $('#inputID').val('');
+                            $('#inputStart').val('');
+                            $('#inputEnd').val('');
+                            $('#inputType').val('');
+                            $('#inputCourseID').val('');
+
+                        }
+                        else {
+                            alert("Class Cannot Be Created!");
+                        }
+                    },
+                    error: function(error){
+                        console.log(error);
+                    }
+                });
+            });
+            $('#findClass').click(function(){
+                $.ajax({
+                    url: '/findClass',
+                    data: $('form').serialize(),
+                    type: 'POST',
+                    success: function(response){
+                        if (response.localeCompare('Error') == 0) {
+                            alert("Class not found!");
+                            $('#inputID').val('');
+                            $('#inputStart').val('');
+                            $('#inputEnd').val('');
+                            $('#inputType').val('');
+                            $('#inputCourseID').val('');
+                        }
+                        else {
+                            var res = response.split(";");
+                            $('#inputStart').val(res[1]);
+                            $('#inputEnd').val(res[2]);
+                            $('#inputType').val(res[3]);
+                            $('#inputCourseID').val(res[4]);
+                        }
+                    },
+                    error: function(error){
+                        console.log(error);
+                    }
+                });
+            });
+            $('#updateClass').click(function(){
+                $.ajax({
+                    url: '/updateClass',
+                    data: $('form').serialize(),
+                    type: 'POST',
+                    success: function(response){
+                        if (response.localeCompare("Success") == 0) {
+                            alert("Class Updated!");
+                            $('#inputID').val('');
+                            $('#inputStart').val('');
+                            $('#inputEnd').val('');
+                            $('#inputType').val('');
+                            $('#inputCourseID').val('');
+
+                        }
+                        else {
+                            alert("Class Cannot Be Updated!");
+                        }
+                    },
+                    error: function(error){
+                        console.log(error);
+                    }
+                });
+            });
+            $('#deleteClass').click(function(){
+                $.ajax({
+                    url: '/deleteClass',
+                    data: $('form').serialize(),
+                    type: 'POST',
+                    success: function(response){
+                        if (response.localeCompare("Success") == 0) {
+                            alert("Class Deleted!");
+                            $('#inputID').val('');
+                            $('#inputStart').val('');
+                            $('#inputEnd').val('');
+                            $('#inputType').val('');
+                            $('#inputCourseID').val('');
+                        }
+                        else {
+                            alert("Class Cannot Be Deleted!");
+                        }
+                    },
+                    error: function(error){
+                        console.log(error);
+                    }
+                });
+            });
+        });
+      </script>
+    <style>
+    
+        html,
+        body {
+          height: 100%;
+        }
+
+        body {
+            
+          background-color: #f5f5f5;
+        }
+        
+        .buttons {
+          width: 100%;
+          max-width: 330px;
+          padding: 15px;
+          margin: 0 auto;
+        }
+        
+        .form-add {
+          width: 100%;
+          max-width: 330px;
+          padding: 15px;
+          margin: 0 auto;
+        }
+        
+    
+    
+    </style>
+  </head>
+
+  <body class="text-center">
+        <h1>Classs</h1><br/>
+        <form class="form-add" role="form">
+          <label for="inputID" class="sr-only">ID</label>
+          <input type="number" id="inputID" name="classID" class="form-control" placeholder="Class ID" required autofocus>
+            
+          <label for="inputStart" class="sr-only">Start Date</label>
+          <input type="date" id="inputStart" name="startDate" class="form-control" placeholder="Start Date" required>
+          <label for="inputEnd" class="sr-only">End Date</label>
+          <input type="date" id="inputEnd" name="endDate" class="form-control" placeholder="End Date" required>
+          
+          <label for="inputType" class="sr-only">Class Type</label>
+          <input type="text" id="inputType" name="type" class="form-control" placeholder="Class Type" required>
+          <label for="inputCourseID" class="sr-only">ID</label>
+          <input type="text" id="inputCourseID" name="courseID" class="form-control" placeholder="Course ID" required>
+          
+          <br/>
+          <button class="btn btn-lg btn-primary btn-block" type="button" id="addClass">Create Class</button>
+          <button class="btn btn-lg btn-primary btn-block" type="button" id="findClass">Find Class</button>
+          <button class="btn btn-lg btn-primary btn-block" type="button" id="updateClass">Update Class</button>
+          <button class="btn btn-lg btn-primary btn-block" type="button" id="deleteClass">Delete Class</button>
+          <button class="btn btn-lg btn-primary btn-block" type="button" id="Return to Menu" onclick="location.href='http://localhost:5000/staffConsole'">Return</button>
+          <p>* You need to enter a valid Class ID for Find, Update and Delete <br/>
+             ** You need to enter a valid Course ID to create a class</p>
+        </form>
+      
+  </body>
+</html>

@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+
+    <title>Students</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sign-in/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+      
+      <script
+  src="https://code.jquery.com/jquery-3.5.1.js"
+  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script>
+      <script>
+        $(function(){
+            $('#addStudent').click(function(){
+                var id = $('#inputID').val();
+                var fn = $('#inputFN').val();
+                var mi = $('#inputMI').val();
+                var ln = $('#inputLN').val();
+                var db = $('#inputBirth').val();
+                var dept = $('#inputDepartment').val();
+                var gpa = $('#inputGPA').val();
+                
+                $.ajax({
+                    url: '/addStudent',
+                    data: $('form').serialize(),
+                    type: 'POST',
+                    success: function(response){
+                        if (response.localeCompare("Success") == 0) {
+                            alert("Student Added!");
+                            $('#inputID').val('');
+                            $('#inputFN').val('');
+                            $('#inputMI').val('');
+                            $('#inputLN').val('');
+                            $('#inputBirth').val('');
+                            $('#inputDepartment').val('');
+                            $('#inputGPA').val('');
+                            $('#inputUsername').val('');
+
+                        }
+                        else {
+                            alert("Student Cannot Be Added!");
+                        }
+                    },
+                    error: function(error){
+                        console.log(error);
+                    }
+                });
+            });
+            $('#findStudent').click(function(){
+                $.ajax({
+                    url: '/findStudent',
+                    data: $('form').serialize(),
+                    type: 'POST',
+                    success: function(response){
+                        if (response.localeCompare('Error') == 0) {
+                            alert("Student not found!");
+                            $('#inputID').val('');
+                            $('#inputFN').val('');
+                            $('#inputMI').val('');
+                            $('#inputLN').val('');
+                            $('#inputBirth').val('');
+                            $('#inputDepartment').val('');
+                            $('#inputGPA').val('');
+                            $('#inputUsername').val('');
+                        }
+                        else {
+                            var res = response.split(";");
+                            $('#inputFN').val(res[1]);
+                            $('#inputMI').val(res[2]);
+                            $('#inputLN').val(res[3]);
+                            $('#inputBirth').val(res[4]);
+                            $('#inputDepartment').val(res[5]);
+                            $('#inputGPA').val(res[6]);
+                            $('#inputUsername').val(res[7]);
+                        }
+                    },
+                    error: function(error){
+                        console.log(error);
+                    }
+                });
+            });
+            $('#updateStudent').click(function(){
+                var user = $('#inputEmail').val();
+                var pass = $('#inputPassword').val();
+                $.ajax({
+                    url: '/updateStudent',
+                    data: $('form').serialize(),
+                    type: 'POST',
+                    success: function(response){
+                        if (response.localeCompare("Success") == 0) {
+                            alert("Student Updated!");
+                            $('#inputID').val('');
+                            $('#inputFN').val('');
+                            $('#inputMI').val('');
+                            $('#inputLN').val('');
+                            $('#inputBirth').val('');
+                            $('#inputDepartment').val('');
+                            $('#inputGPA').val('');
+                            $('#inputUsername').val('');
+
+                        }
+                        else {
+                            alert("Student Cannot Be Updated!");
+                        }
+                    },
+                    error: function(error){
+                        console.log(error);
+                    }
+                });
+            });
+            $('#deleteStudent').click(function(){
+                var user = $('#inputEmail').val();
+                var pass = $('#inputPassword').val();
+                $.ajax({
+                    url: '/deleteStudent',
+                    data: $('form').serialize(),
+                    type: 'POST',
+                    success: function(response){
+                        if (response.localeCompare("Success") == 0) {
+                            alert("Student Deleted!");
+                            $('#inputID').val('');
+                            $('#inputFN').val('');
+                            $('#inputMI').val('');
+                            $('#inputLN').val('');
+                            $('#inputBirth').val('');
+                            $('#inputDepartment').val('');
+                            $('#inputGPA').val('');
+                            $('#inputUsername').val('');
+                        }
+                        else {
+                            alert("Student Cannot Be Deleted!");
+                        }
+                    },
+                    error: function(error){
+                        console.log(error);
+                    }
+                });
+            });
+        });
+      </script>
+    <style>
+    
+        html,
+        body {
+          height: 100%;
+        }
+
+        body {
+            
+          background-color: #f5f5f5;
+        }
+        
+        .buttons {
+          width: 100%;
+          max-width: 330px;
+          padding: 15px;
+          margin: 0 auto;
+        }
+        
+        .form-add {
+          width: 100%;
+          max-width: 330px;
+          padding: 15px;
+          margin: 0 auto;
+        }
+        
+    
+    
+    </style>
+  </head>
+
+  <body class="text-center">
+        <h1>Students</h1><br/>
+        <form class="form-add" role="form">
+          <label for="inputID" class="sr-only">ID</label>
+          <input type="number" id="inputID" name="studentID" class="form-control" placeholder="ID" required autofocus>
+          <label for="inputFN" class="sr-only">First Name</label>
+          <input type="text" id="inputFN" name="firstName" class="form-control" placeholder="First Name" required>
+          <label for="inputMI" class="sr-only">Middle Initial</label>
+          <input type="text" id="inputMI" name="middleInitial" class="form-control" placeholder="Middle Initial" required>
+          <label for="inputLN" class="sr-only">Last Name</label>
+          <input type="text" id="inputLN" name="lastName" class="form-control" placeholder="Last Name" required>
+          <label for="inputBirth" class="sr-only">Date of Birth</label>
+          <input type="date" id="inputBirth" name="dateBirth" class="form-control" placeholder="Last Name" required>
+          <label for="inputDepartment" class="sr-only">Department</label>
+          <input type="text" id="inputDepartment" name="department" class="form-control" placeholder="Department" required>
+          <label for="inputGPA" class="sr-only">Last Name</label>
+          <input type="text" id="inputGPA" name="gpa" class="form-control" placeholder="Cumulative GPA" required>
+          <label for="inputUsername" class="sr-only">Username</label>
+          <input type="text" id="inputUsername" name="username" class="form-control" placeholder="Username mail" required>
+          <br/>
+          <button class="btn btn-lg btn-primary btn-block" type="button" id="addStudent">Add Student</button>
+          <button class="btn btn-lg btn-primary btn-block" type="button" id="findStudent">Find Student</button>
+          <button class="btn btn-lg btn-primary btn-block" type="button" id="updateStudent">Update Student</button>
+          <button class="btn btn-lg btn-primary btn-block" type="button" id="deleteStudent">Delete Student</button>
+          <button class="btn btn-lg btn-primary btn-block" type="button" id="Return to Menu" onclick="location.href='http://localhost:5000/staffConsole'">Return</button>
+          <p>* You need to enter a valid Student ID for Find, Update and Delete</p>
+        </form>
+      
+  </body>
+</html>

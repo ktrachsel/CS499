@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+
+    <title>Offline Classses</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sign-in/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+      
+      <script
+  src="https://code.jquery.com/jquery-3.5.1.js"
+  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script>
+      <script>
+        $(function(){
+            $('#addOffClass').click(function(){
+                
+                $.ajax({
+                    url: '/addOffClass',
+                    data: $('form').serialize(),
+                    type: 'POST',
+                    success: function(response){
+                        if (response.localeCompare("Success") == 0) {
+                            alert("Offline Class Created!");
+                            $('#inputBuilding').val('');
+                            $('#inputRoom').val('');
+                            $('#inputID').val('');
+
+                        }
+                        else {
+                            alert("Offline Class Cannot Be Created!");
+                        }
+                    },
+                    error: function(error){
+                        console.log(error);
+                    }
+                });
+            });
+            $('#findOffClass').click(function(){
+                $.ajax({
+                    url: '/findOffClass',
+                    data: $('form').serialize(),
+                    type: 'POST',
+                    success: function(response){
+                        if (response.localeCompare('Error') == 0) {
+                            alert("Offline Class not found!");
+                            $('#inputBuilding').val('');
+                            $('#inputRoom').val('');
+                            $('#inputID').val('');
+                            $('#inputOffID').val('');
+                        }
+                        else {
+                            var res = response.split(";");
+                            $('#inputBuilding').val(res[1]);
+                            $('#inputRoom').val(res[2]);
+                            $('#inputID').val(res[3]);
+                        }
+                    },
+                    error: function(error){
+                        console.log(error);
+                    }
+                });
+            });
+            $('#updateOffClass').click(function(){
+                $.ajax({
+                    url: '/updateOffClass',
+                    data: $('form').serialize(),
+                    type: 'POST',
+                    success: function(response){
+                        if (response.localeCompare("Success") == 0) {
+                            alert("Offline Class Updated!");
+                            $('#inputBuilding').val('');
+                            $('#inputRoom').val('');
+                            $('#inputID').val('');
+                            $('#inputOffID').val('');
+                        }
+                        else {
+                            alert("Offline Class Cannot Be Updated!");
+                        }
+                    },
+                    error: function(error){
+                        console.log(error);
+                    }
+                });
+            });
+            $('#deleteOffClass').click(function(){
+                $.ajax({
+                    url: '/deleteOffClass',
+                    data: $('form').serialize(),
+                    type: 'POST',
+                    success: function(response){
+                        if (response.localeCompare("Success") == 0) {
+                            alert("Offline Class Deleted!");
+                            $('#inputBuilding').val('');
+                            $('#inputRoom').val('');
+                            $('#inputID').val('');
+                            $('#inputOffID').val('');
+                        }
+                        else {
+                            alert("Offline Class Cannot Be Deleted!");
+                        }
+                    },
+                    error: function(error){
+                        console.log(error);
+                    }
+                });
+            });
+        });
+      </script>
+    <style>
+    
+        html,
+        body {
+          height: 100%;
+        }
+
+        body {
+            
+          background-color: #f5f5f5;
+        }
+        
+        .buttons {
+          width: 100%;
+          max-width: 330px;
+          padding: 15px;
+          margin: 0 auto;
+        }
+        
+        .form-add {
+          width: 100%;
+          max-width: 330px;
+          padding: 15px;
+          margin: 0 auto;
+        }
+        
+    
+    
+    </style>
+  </head>
+
+  <body class="text-center">
+        <h1>Offline Classes</h1><br/>
+        <form class="form-add" role="form">
+          <label for="inputBuilding" class="sr-only">Class Building</label>
+          <input type="text" id="inputBuilding" name="building" class="form-control" placeholder="Class Building" required autofocus>
+          <label for="inputRoom" class="sr-only">Class Room</label>
+          <input type="text" id="inputRoom" name="room" class="form-control" placeholder="Class Room" required>
+          <label for="inputID" class="sr-only">ID</label>
+          <input type="number" id="inputID" name="classID" class="form-control" placeholder="Class ID" required>
+          
+          
+          <br/>
+          <button class="btn btn-lg btn-primary btn-block" type="button" id="addOffClass">Create Class</button> <br/>
+          <label for="inputOffID" class="sr-only">Offline Class ID</label>
+          <input type="number" id="inputOffID" name="offID" class="form-control" placeholder="Offline Class ID" required><br/>
+          <button class="btn btn-lg btn-primary btn-block" type="button" id="findOffClass">Find Class</button>
+          <button class="btn btn-lg btn-primary btn-block" type="button" id="updateOffClass">Update Class</button>
+          <button class="btn btn-lg btn-primary btn-block" type="button" id="deleteOffClass">Delete Class</button>
+          <button class="btn btn-lg btn-primary btn-block" type="button" id="Return to Menu" onclick="location.href='http://localhost:5000/staffConsole'">Return</button>
+          <p>* You need to enter a valid Offline  ID for Find, Update and Delete <br/>
+        </form>
+      
+  </body>
+</html>

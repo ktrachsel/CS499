@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+
+    <title>Log In</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sign-in/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+      
+      <script
+  src="https://code.jquery.com/jquery-3.5.1.js"
+  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script>
+    <style>
+    
+        html,
+        body {
+          height: 100%;
+        }
+
+        body {
+            
+          background-color: #f5f5f5;
+        }
+        
+        .buttons {
+          width: 100%;
+          max-width: 330px;
+          padding: 15px;
+          margin: 0 auto;
+        }
+
+        
+    
+    
+    </style>
+  </head>
+
+  <body class="text-center">
+        <h1>Welcome {{data.user}}!</h1><br/>
+        <div class = "buttons">
+            <button class="btn btn-lg btn-primary btn-block" type="button" onclick="location.href='/Students'">Maintain Student Records</button>
+            <button class="btn btn-lg btn-primary btn-block" type="button" onclick="location.href='/Register'">Register Student Class</button><br/>
+            <button class="btn btn-lg btn-primary btn-block" type="button" onclick="location.href='/Courses'">Maintain Course Records</button>
+            <button class="btn btn-lg btn-primary btn-block" type="button" onclick="location.href='/Classes'">Maintain Class Records</button><br/>
+            <button class="btn btn-lg btn-primary btn-block" type="button" onclick="location.href='/Online'">Maintain Online Classes</button>
+            <button class="btn btn-lg btn-primary btn-block" type="button" onclick="location.href='/Offline'">Maintain Offline Classes</button><br/>
+        </div>
+  </body>
+</html>
